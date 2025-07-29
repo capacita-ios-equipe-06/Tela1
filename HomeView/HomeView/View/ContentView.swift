@@ -1,7 +1,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var pets: [Pet] = [
+        Pet(nome: "Fulanyr", idade: 30, peso: 50, foto: nil, detalhes: "Gosta de brincar e passear", raca: "Dachshund", sexo: Sexo.female, especie: Especie.fish),
+        
+        Pet(nome: "Claudia", idade: 50, peso: 50, foto: nil, detalhes: "Gosta de brincar e passear", raca: "Dachshund", sexo: Sexo.female, especie: Especie.fish),
+        
+        Pet(nome: "Roberto", idade: 3, peso: 50, foto: nil, detalhes: "Gosta de brincar e passear", raca: "Dachshund", sexo: Sexo.male, especie: Especie.fish)
+    ]
+    
     var body: some View {
+        // desatualizado
         NavigationView {
             VStack(spacing: 0) {
                 VStack {
@@ -36,8 +45,7 @@ struct ContentView: View {
                         VStack(spacing: 15) {
                             HStack {
                                 Text("Meus Pets")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
+                                    .font(.custom("Modak", size: 32))
                                     .foregroundColor(Color(red: 1.0, green: 0.4, blue: 0.3))
                                 Spacer()
                             }
