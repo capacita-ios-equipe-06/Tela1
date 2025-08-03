@@ -9,39 +9,77 @@ import SwiftUI
 
 struct PetInfoView: View {
     
-    @State var pets: [Pet] = [
-        Pet(nome: "Fulanyr", idade: 30, peso: 50, foto: nil, detalhes: "Gosta de brincar e passear", raca: "Dachshund", sexo: Sexo.female, especie: Especie.fish)
-    ]
+    let pet = Pet(nome: "Gaiatinha", idade: 1, peso: 5, foto: nil, detalhes: "Adora o Fellipe", raca: "Gato", sexo: Sexo.female, especie: Especie.cat)
     
     var body: some View {
+        
         ZStack (alignment: .bottom) {
-            VStack {
-                Image("CachorroFoto")
-                    .resizable()
-                    .scaledToFit()
-                    .ignoresSafeArea()
-                Spacer()
+            
+            ZStack (alignment: .topTrailing) {
+                VStack {
+                    Image("CachorroFoto")
+                        .resizable()
+                        .scaledToFit()
+                        .ignoresSafeArea()
+                    Spacer()
+                }
+                
+                    
+                Button (action: {}) {
+                    ZStack {
+                        Image("Chevron left")
+                            .padding(.trailing, 350)
+                            
+                    }
+                }
+                
+                Button (action: {}) {
+                    ZStack {
+                        Image("Edit")
+                            .padding(.trailing, 60)
+                            .padding(.top, 5)
+                        
+                    }
+                }
+                
+                Button(action: {}) {
+                    ZStack {
+                        Circle()
+                            .frame(width: 41, height: 41)
+                            .padding(.trailing, 10)
+                            .foregroundStyle(Color.vermelhoApagar)
+                            .opacity(0.8)
+                        Image("Trash")
+                            .padding(.trailing, 10)
+                            .frame(width: 32, height: 32)
+                    }
+                }
             }
+            
+            
+            
             ZStack (alignment: .top) {
                 RoundedRectangle(cornerRadius: 50)
                     .foregroundStyle(Color.white)
                     .ignoresSafeArea()
                     .frame(height: 570)
                 
+
                 VStack {
-                    Text(pets[0].nome)
+                    Text(pet.nome)
                         .frame(maxWidth: .infinity)
                         .font(Font.custom("Modak", size: 52.84))
                         .foregroundStyle(Color.laranjaArchie)
                     
                     
-                    Text(pets[0].raca)
+                    Text(pet.raca)
                         .font(Font.custom("ADLaMDisplay-Regular", size: 18.94))
                     
                     ZStack {
                         RoundedRectangle(cornerRadius: 25)
                             .frame(width: 356, height: 91)
                             .foregroundStyle(Color.laranjaClaro)
+                            .opacity(0.3)
                         VStack {
                             HStack {
                                 VStack {
@@ -56,7 +94,7 @@ struct PetInfoView: View {
                                             .frame(width: 64.5, height: 66.26)
                                             .foregroundStyle(Color.laranjaPrincipal)
                                             .padding(.trailing, 30)
-                                        Text(verificarMOuF())
+                                        Text(verificarMOuF(pet: pet))
                                             .font(Font.custom("ADLaMDisplay-Regular", size: 40.72))
                                             .padding(.trailing, 30)
                                             .foregroundStyle(Color.white)
@@ -76,7 +114,7 @@ struct PetInfoView: View {
                                             .frame(width: 64.5, height: 66.26)
                                             .foregroundStyle(Color.laranjaPrincipal)
                                         
-                                        Text(pets[0].idade.description)
+                                        Text(pet.idade.description)
                                             .font(Font.custom("ADLaMDisplay-Regular", size: 40.72))
                                             .foregroundStyle(Color.white)
                                         
@@ -99,7 +137,7 @@ struct PetInfoView: View {
                                             .foregroundStyle(Color.laranjaPrincipal)
                                             .padding(.leading, 30)
                                         
-                                        Text(pets[0].peso.formatted())
+                                        Text(pet.peso.formatted())
                                             .font(Font.custom("ADLaMDisplay-Regular", size: 40.72))
                                             .foregroundStyle(Color.white)
                                             .padding(.leading, 30)
@@ -115,10 +153,11 @@ struct PetInfoView: View {
                         RoundedRectangle(cornerRadius: 30)
                             .frame(width: 356, height: 134)
                             .foregroundStyle(Color.laranjaClaro)
+                            .opacity(0.3)
                         
-                        VStack (alignment: .leading) {
+                        ZStack (alignment: .leading) {
                             
-                            Text(pets[0].detalhes)
+                            Text(pet.detalhes)
                                 .font(Font.custom("ADLaMDisplay-Regular", size: 14.08))
                                 .frame(width: 318, height: 172)
                         }
@@ -139,9 +178,14 @@ struct PetInfoView: View {
                                 .frame(width: 356, height: 85)
                                 .foregroundStyle(Color.laranjaClaro)
                                 .padding(.top, -30)
+                                .opacity(0.3)
                             
-                            Text("Antirábica")
-                                .font(Font.custom("ADLaMDisplay-Regular", size: 15.12))
+                            ZStack (alignment: .leading){
+                                
+                                Text("Antirábica")
+                                    .font(Font.custom("ADLaMDisplay-Regular", size: 15.12))
+                                    .padding(.top, -20)
+                            }
                         }
                         ZStack {
                             RoundedRectangle(cornerRadius: 30)
@@ -155,32 +199,22 @@ struct PetInfoView: View {
                                 .padding(.top, -30)
                             
                             
+                            }
                         }
-                    }
-                    
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 50)
-                            .frame(width: 182.64, height: 41)
-                            .foregroundStyle(Color.vermelhoApagar)
-                            .opacity(0.8)
-                        
-                        Text("excluir pet")
-                            .font(Font.custom("ADLaMDisplay-Regular", size: 21.56))
-                            .foregroundStyle(Color.white)
                     }
                 }
             }
         }
     }
-    func verificarMOuF() -> String {
-        if pets[0].sexo == .male {
+    private func verificarMOuF(pet: Pet) -> String {
+        if pet.sexo == .male {
             return "M"
         }
         else {
             return "F"
         }
     }
-}
+
 
 
 #Preview {
