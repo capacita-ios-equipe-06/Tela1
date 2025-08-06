@@ -1,4 +1,4 @@
-import SwiftUI
+0import SwiftUI
 
 struct ContentView: View {
     @State var pets: [Pet] = [
