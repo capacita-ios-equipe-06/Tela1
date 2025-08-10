@@ -18,15 +18,14 @@ struct InicioView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            Rectangle()
-                .ignoresSafeArea(.all)
-                .foregroundStyle(Color.rosaPrincipal)
+            LogoView()
             
             ZStack(alignment: .top) {
-                RoundedRectangle(cornerRadius: 20)
+                RoundedRectangle(cornerRadius: 30)
                     .foregroundStyle(Color.white)
                     .ignoresSafeArea(.all)
-                    .frame(height: 687)
+                    .frame(height: 680)
+                    .shadow(color: Color.vermelhoApagar.opacity(0.6), radius: 38, x: 0, y: -2)
                 
                 VStack(spacing: 40) {
                     HStack {

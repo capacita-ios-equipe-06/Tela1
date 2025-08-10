@@ -26,26 +26,51 @@ struct PetTipsView: View {
     @State private var selectedTips: [Tip] = []
     
     var body: some View {
+        
+        ZStack(alignment: .bottom) {
+            LogoView()
+
         ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
+            VStack (spacing: 0) {
+                Color.clear
+                    .frame(height: 100)
                 
-                Text("DICAS\ne curiosidades")
-                    .font(.custom("ADLaMDisplay-Regular", size: 26))
-                    .foregroundStyle(Color.laranjaPrincipal)
-                    .padding(.top,20)
                 
-                ForEach(selectedTips) { tip in
-                    TipCardView(title: tip.title, subtitle: tip.subtitle, imageName: tip.imageName)
+                VStack (spacing: 0) {
+                    ZStack {
+                        Image("Star")
+                            .padding(.leading, -64)
+                        
+                        Text("  DICAS\ne curiosidades")
+                            .font(.custom("ADLaMDisplay-Regular", size: 26))
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(Color.laranjaPrincipal)
+                            .padding(.top, 30)
+                    }
+                    
+                    Spacer()
+                    
+                    ForEach(selectedTips) { tip in
+                        TipCardView(title: tip.title, subtitle: tip.subtitle, imageName: tip.imageName)
+                    }
                 }
+                .background(
+                    RoundedRectangle(cornerRadius: 30)
+                        .foregroundStyle(Color.white)
+                        .shadow(color: Color.vermelhoApagar.opacity(0.6), radius: 38, x:0, y:-2)
+                        //.frame(maxHeight: .infinity, alignment: .bottom)
+                )
+                .padding(.horizontal)
+
             }
-            .padding()
         }
+    }
         .onAppear {
-            selectedTips = Array(allTips.shuffled().prefix(3))
+            selectedTips = Array(allTips.shuffled().prefix(4))
         }
     }
 }
-    
-    #Preview {
-        PetTipsView()
-    }
+        
+        #Preview {
+            PetTipsView()
+        }

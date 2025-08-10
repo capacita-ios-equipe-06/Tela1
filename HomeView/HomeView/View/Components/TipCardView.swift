@@ -13,12 +13,13 @@ struct TipCardView: View {
     let imageName: String
     
     var body: some View {
-        HStack(alignment: .top) {
+        ZStack(alignment: .top) {
             Image(imageName)
                 .resizable()
-                .scaledToFit()
+                //.scaledToFit()
                 .frame(width: 367, height: 187)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
+                .clipped()
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(subtitle)
@@ -30,7 +31,7 @@ struct TipCardView: View {
                     .fontWeight(.bold)
                     .foregroundStyle(Color.white)
             }
-            Spacer()
+            //Spacer()
         }
         .padding()
         .shadow(radius: 10)
@@ -38,5 +39,5 @@ struct TipCardView: View {
 }
 
 #Preview {
-    TipCardView(title: "Title", subtitle: "Subtitle", imageName: "image")
+    TipCardView(title: "Nariz único", subtitle: "Curiosidade", imageName: "dog")
 }
