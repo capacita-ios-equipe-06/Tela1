@@ -70,6 +70,7 @@ struct PetInfoView: View {
                         .frame(maxWidth: .infinity)
                         .font(Font.custom("Modak", size: 52.84))
                         .foregroundStyle(Color.laranjaArchie)
+                        .padding(.bottom, -30)
                     
                     
                     Text(pet.raca)
@@ -155,12 +156,11 @@ struct PetInfoView: View {
                             .foregroundStyle(Color.laranjaClaro)
                             .opacity(0.3)
                         
-                        ZStack (alignment: .leading) {
-                            
-                            Text(pet.detalhes)
-                                .font(Font.custom("ADLaMDisplay-Regular", size: 14.08))
-                                .frame(width: 318, height: 172)
-                        }
+                            Text(pet.detalhes)	
+                                .font(Font.custom("ADLaMDisplay-Regular",size: 14.08))
+                                .frame(width: 318, height: 172, alignment: .leading)
+                                .padding(.leading, 10)
+                                .padding(.top, -20)
                         
                         ZStack {
                             RoundedRectangle(cornerRadius: 30)
@@ -180,25 +180,25 @@ struct PetInfoView: View {
                                 .padding(.top, -30)
                                 .opacity(0.3)
                             
-                            ZStack (alignment: .leading){
                                 
-                                Text("Antirábica")
-                                    .font(Font.custom("ADLaMDisplay-Regular", size: 15.12))
-                                    .padding(.top, -20)
-                            }
+                            Text("Antirábica")
+                                .font(Font.custom("ADLaMDisplay-Regular",size: 15.12))
+                                .padding(.top, -20)
+                                .frame(width: 356, height: 85, alignment: .leading)
+                                .padding(.leading, 20)
                         }
                         ZStack {
                             RoundedRectangle(cornerRadius: 30)
                                 .frame(width: 146.6, height: 44.19)
                                 .foregroundStyle(Color.laranjaPrincipal)
                                 .padding(.top, -30)
+                                .padding(.leading, 10)
                             
                             Text("VACINAS")
                                 .font(Font.custom("Modak", size: 27.76))
                                 .foregroundStyle(Color.white)
                                 .padding(.top, -30)
-                            
-                            
+                                .padding(.leading, 10)
                             }
                         }
                     }
