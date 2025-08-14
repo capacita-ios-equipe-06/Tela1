@@ -30,7 +30,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		818B9D682E4419F300DC30AD /* Exceptions for "HomeView" folder in "HomeView" target */ = {
+		36ADEF5C2E383089001C7378 /* Exceptions for "HomeView" folder in "HomeView" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -43,7 +43,7 @@
 		81362C852E21A2D700E2981A /* HomeView */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				818B9D682E4419F300DC30AD /* Exceptions for "HomeView" folder in "HomeView" target */,
+				36ADEF5C2E383089001C7378 /* Exceptions for "HomeView" folder in "HomeView" target */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
