@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct HomeViewApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            InicioView()
         }
+        .modelContainer(for: [Pet.self])
     }
 }

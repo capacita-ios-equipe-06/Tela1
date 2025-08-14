@@ -6,7 +6,10 @@
 //
 
 import SwiftUI
+import SwiftData
 
+
+@Model
 class Pet: Identifiable {
     var id: UUID
     var nome: String
@@ -31,7 +34,7 @@ class Pet: Identifiable {
     }
 }
 
-enum Sexo: String, CaseIterable {
+enum Sexo: String, CaseIterable, Codable {
     case male, female
     
     var displayText: String {
@@ -44,7 +47,7 @@ enum Sexo: String, CaseIterable {
     }
 }
 
-enum Especie: String, CaseIterable {
+enum Especie: String, CaseIterable, Codable {
     case bird, cat, dog, fish, rabbit
     
     var displayText: String {

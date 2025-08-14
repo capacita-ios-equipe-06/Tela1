@@ -6,27 +6,23 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct InicioView: View {
-    @State var pets: [Pet] = [
-        Pet(nome: "Fulanyr", idade: 30, peso: 50, foto: nil, detalhes: "Gosta de brincar e passear", raca: "Dachshund", sexo: Sexo.female, especie: Especie.fish),
-        
-        Pet(nome: "Claudia", idade: 50, peso: 50, foto: nil, detalhes: "Gosta de brincar e passear", raca: "Dachshund", sexo: Sexo.female, especie: Especie.fish),
-        
-        Pet(nome: "Roberto", idade: 3, peso: 50, foto: nil, detalhes: "Gosta de brincar e passear", raca: "Dachshund", sexo: Sexo.male, especie: Especie.fish)
-    ]
+    @ObservedObject var petViewModel = PetViewModel.shared
+    @Environment(\.modelContext) var context
     
     var body: some View {
+        NavigationStack {
         ZStack(alignment: .bottom) {
-            Rectangle()
-                .ignoresSafeArea(.all)
-                .foregroundStyle(Color.rosaPrincipal)
+            LogoView()
             
             ZStack(alignment: .top) {
-                RoundedRectangle(cornerRadius: 20)
+                RoundedRectangle(cornerRadius: 30)
                     .foregroundStyle(Color.white)
                     .ignoresSafeArea(.all)
-                    .frame(height: 687)
+                    .frame(height: 680)
+                    .shadow(color: Color.vermelhoApagar.opacity(0.6), radius: 38, x: 0, y: -2)
                 
                 VStack(spacing: 40) {
                     HStack {
@@ -40,10 +36,8 @@ struct InicioView: View {
                         
                         Spacer()
                         
-                        Button(action: {
-                            let newPet = Pet(nome: "Lidia", idade: 30, peso: 50, foto: nil, detalhes: "Gosta de brincar e passear", raca: "Dachshund", sexo: Sexo.female, especie: Especie.fish)
-                            
-                            pets.append(newPet)
+                        NavigationLink(destination: {
+                            CadastroView()
                         }, label: {
                             Image("PlusIcon")
                         })
@@ -53,18 +47,22 @@ struct InicioView: View {
                     
                     
                     VStack {
-                        ForEach(pets) { pet in
-                            PetCardView(petName: pet.nome)
+                        ForEach(petViewModel.pets) { pet in
+                            NavigationLink(destination: PetInfoView(pet: pet), label: {
+                                PetCardView(petName: pet.nome)
+                            })
                         }
                     }
-                      
-                    
                     
                 }
                 .padding()
             }
-                
+            
         }
+        .onAppear {
+            petViewModel.fetchPets(context: context)
+        }
+    }
     }
 }
 

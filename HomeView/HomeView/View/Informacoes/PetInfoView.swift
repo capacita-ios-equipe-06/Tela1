@@ -6,26 +6,41 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct PetInfoView: View {
+    @ObservedObject var petViewModel = PetViewModel.shared
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) var context
     
-    let pet = Pet(nome: "Gaiatinha", idade: 1, peso: 5, foto: nil, detalhes: "Adora o Fellipe", raca: "Gato", sexo: Sexo.female, especie: Especie.cat)
+    @State var showDeleteAlert: Bool = false
+    
+    let pet: Pet
     
     var body: some View {
-        
         ZStack (alignment: .bottom) {
-            
             ZStack (alignment: .topTrailing) {
                 VStack {
-                    Image("CachorroFoto")
-                        .resizable()
-                        .scaledToFit()
-                        .ignoresSafeArea()
+                    if let petData = pet.foto {
+                        if let img = UIImage(data: petData) {
+                            Image(uiImage: img)
+                                .resizable()
+                                .scaledToFit()
+                                .ignoresSafeArea()
+                        } else {
+                            Image("CachorroFoto")
+                                .resizable()
+                                .scaledToFit()
+                                .ignoresSafeArea()
+                        }
+                    }
+                    
                     Spacer()
                 }
                 
-                    
-                Button (action: {}) {
+                Button (action: {
+                    dismiss()
+                }) {
                     ZStack {
                         Image("Chevron left")
                             .padding(.trailing, 350)
@@ -42,13 +57,16 @@ struct PetInfoView: View {
                     }
                 }
                 
-                Button(action: {}) {
+                Button(action: {
+                    showDeleteAlert = true
+                }) {
                     ZStack {
                         Circle()
                             .frame(width: 41, height: 41)
                             .padding(.trailing, 10)
                             .foregroundStyle(Color.vermelhoApagar)
-                            .opacity(0.8)
+                            .opacity(0.80)
+
                         Image("Trash")
                             .padding(.trailing, 10)
                             .frame(width: 32, height: 32)
@@ -67,6 +85,7 @@ struct PetInfoView: View {
 
                 VStack {
                     Text(pet.nome)
+                        .lineLimit(1)
                         .frame(maxWidth: .infinity)
                         .font(Font.custom("Modak", size: 52.84))
                         .foregroundStyle(Color.laranjaArchie)
@@ -120,7 +139,6 @@ struct PetInfoView: View {
                                         
                                     }
                                 }
-                                
                                 
                                 VStack {
                                     Text("peso")
@@ -204,6 +222,17 @@ struct PetInfoView: View {
                     }
                 }
             }
+        .navigationBarBackButtonHidden(true)
+        .alert("Deseja deletar esse pet? Essa ação é irreversível!", isPresented: $showDeleteAlert) {
+            
+            Button("Deletar", role: .destructive) {
+                petViewModel.removePet(selectedPet: pet, context: context)
+                dismiss()
+            }
+            
+            Button("Cancelar", role: .cancel) {}
+            
+        }
         }
     }
     private func verificarMOuF(pet: Pet) -> String {
@@ -215,8 +244,3 @@ struct PetInfoView: View {
         }
     }
 
-
-
-#Preview {
-    PetInfoView()
-}
