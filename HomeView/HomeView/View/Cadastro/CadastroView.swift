@@ -34,6 +34,8 @@ struct CadastroView: View {
     
     @State private var form = PetFormInfo()
     
+    let petToEdit: Pet?
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
@@ -65,11 +67,20 @@ struct CadastroView: View {
                                         .resizable()
                                         .scaledToFill()
                                 } else {
-                                    Image(systemName: "photo")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .foregroundColor(.gray)
-                                        .padding(20)
+                                    if let pet = petToEdit {
+                                        if let img = form.pickedUIImage {
+                                            Image(uiImage: img)
+                                                .resizable()
+                                                .scaledToFill()
+                                        }
+                                    } else {
+                                        Image(systemName: "photo")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .foregroundColor(.gray)
+                                            .padding(20)
+                                    }
+                                    
                                 }
                             }
                             .frame(width: 100, height: 100)
@@ -173,23 +184,55 @@ struct CadastroView: View {
                     form.fotoData = data
                 }
             }
+            .onAppear {
+                if let pet = petToEdit {
+                    form.nome = pet.nome
+                    form.raca = pet.raca
+                    form.detalhes = pet.detalhes
+                    form.selectedSexo = pet.sexo
+                    form.selectedEspecie = pet.especie
+                    form.idadeText = String(pet.idade)
+                    form.pesoText = String(format: "%.2f", pet.peso).replacingOccurrences(of: ".", with: ",")
+                    if let data = pet.foto {
+                        form.fotoData = data
+                        form.pickedUIImage = UIImage(data: data)
+                    }
+                }
+            }
         }
         .navigationBarBackButtonHidden(true)
     }
     
     private func salvar() {
-           guard let sexo = form.selectedSexo,
-                 let especie = form.selectedEspecie,
-                 let idade = Int(form.idadeText),
-                 let peso = Double(form.pesoText.replacingOccurrences(of: ",", with: ".")) else {
-               print("Erro ao converter dados")
-               return
-           }
+        if let pet = petToEdit {
+            guard let sexo = form.selectedSexo,
+                  let especie = form.selectedEspecie,
+                  let idade = Int(form.idadeText),
+                  let peso = Double(form.pesoText.replacingOccurrences(of: ",", with: ".")) else {
+                print("Erro ao converter dados")
+                return
+            }
+            
+            petViewModel.updatePet(nome: form.nome, idade: idade, peso: peso, foto: form.fotoData, detalhes: form.detalhes, raca: form.raca, sexo: sexo, especie: especie, context: context, selectedPet: pet)
+            
+            form = PetFormInfo()
+            
+            dismiss()
+        } else {
+            guard let sexo = form.selectedSexo,
+                  let especie = form.selectedEspecie,
+                  let idade = Int(form.idadeText),
+                  let peso = Double(form.pesoText.replacingOccurrences(of: ",", with: ".")) else {
+                print("Erro ao converter dados")
+                return
+            }
+            
+            petViewModel.createPet(nome: form.nome, idade: idade, peso: peso, foto: form.fotoData, detalhes: form.detalhes, raca: form.raca, sexo: sexo, especie: especie, context: context)
+            
+            form = PetFormInfo()
+            
+            dismiss()
+        }
         
-        petViewModel.createPet(nome: form.nome, idade: idade, peso: peso, foto: form.fotoData, detalhes: form.detalhes, raca: form.raca, sexo: sexo, especie: especie, context: context)
-        
-        form = PetFormInfo()
-        
-        dismiss()
-       }
+    }
 }

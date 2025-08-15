@@ -37,7 +37,7 @@ struct InicioView: View {
                         Spacer()
                         
                         NavigationLink(destination: {
-                            CadastroView()
+                            CadastroView(petToEdit: nil)
                         }, label: {
                             Image("PlusIcon")
                         })
@@ -49,7 +49,7 @@ struct InicioView: View {
                     VStack {
                         ForEach(petViewModel.pets) { pet in
                             NavigationLink(destination: PetInfoView(pet: pet), label: {
-                                PetCardView(petName: pet.nome)
+                                PetCardView(pet: pet)
                             })
                         }
                     }

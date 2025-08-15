@@ -8,13 +8,28 @@
 import SwiftUI
 
 struct PetCardView: View {
-    let petName: String
+    let pet: Pet
     
     var body: some View {
         HStack {
-            RoundedRectangle(cornerRadius: 35)
-                .frame(width: 163, height: 124)
-                .foregroundStyle(.laranjaClaro)
+            
+            if let petData = pet.foto {
+                if let img = UIImage(data: petData) {
+                    Image(uiImage: img)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 163, height: 124)
+                        .cornerRadius(35)
+                    
+                }
+            }
+            else {
+                Image("CachorroFoto")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 163, height: 124)
+                    .cornerRadius(35)
+            }
             
             RoundedRectangle(cornerRadius: 35)
                 .frame(width: 205, height: 124)
@@ -33,7 +48,7 @@ struct PetCardView: View {
                         
                         VStack {
                             HStack {
-                                Text(petName)
+                                Text(pet.nome)
                                     .font(.custom("Modak", size: 32))
                                     .foregroundStyle(Color.white)
                                 
@@ -58,8 +73,4 @@ struct PetCardView: View {
                 }
         }
     }
-}
-
-#Preview {
-    PetCardView(petName: "Felipe")
 }

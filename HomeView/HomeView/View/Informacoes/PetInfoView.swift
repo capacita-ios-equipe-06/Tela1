@@ -27,13 +27,14 @@ struct PetInfoView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .ignoresSafeArea()
-                        } else {
-                            Image("CachorroFoto")
-                                .resizable()
-                                .scaledToFit()
-                                .ignoresSafeArea()
                         }
                     }
+                    else {
+                       Image("CachorroFoto")
+                           .resizable()
+                           .scaledToFit()
+                           .ignoresSafeArea()
+                   }
                     
                     Spacer()
                 }
@@ -48,14 +49,14 @@ struct PetInfoView: View {
                     }
                 }
                 
-                Button (action: {}) {
+                NavigationLink(destination: CadastroView(petToEdit: pet), label: {
                     ZStack {
                         Image("Edit")
                             .padding(.trailing, 60)
                             .padding(.top, 5)
                         
                     }
-                }
+                })
                 
                 Button(action: {
                     showDeleteAlert = true
