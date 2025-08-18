@@ -35,8 +35,7 @@ struct PetTipsView: View {
                 Color.clear
                     .frame(height: 100)
                 
-                
-                VStack (spacing: 0) {
+                VStack {
                     ZStack {
                         Image("Star")
                             .padding(.leading, -64)
@@ -48,20 +47,20 @@ struct PetTipsView: View {
                             .padding(.top, 30)
                     }
                     
-                    Spacer()
-                    
-                    ForEach(selectedTips) { tip in
-                        TipCardView(title: tip.title, subtitle: tip.subtitle, imageName: tip.imageName)
+                    VStack (spacing: 20) {
+                        ForEach(selectedTips) { tip in
+                            TipCardView(title: tip.title, subtitle: tip.subtitle, imageName: tip.imageName)
+                        }
                     }
+                    .padding(.horizontal)
+                    .padding(.bottom, 40)
                 }
                 .background(
                     RoundedRectangle(cornerRadius: 30)
                         .foregroundStyle(Color.white)
                         .shadow(color: Color.vermelhoApagar.opacity(0.6), radius: 38, x:0, y:-2)
-                        //.frame(maxHeight: .infinity, alignment: .bottom)
                 )
-                .padding(.horizontal)
-
+                //.padding(.horizontal)
             }
         }
     }
